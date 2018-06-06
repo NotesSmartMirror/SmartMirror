@@ -57,7 +57,7 @@ public class HomeGUI extends javax.swing.JFrame {
         //fullscreen options
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        // get notes every few seconds
+        // get notes every 3 seconds
         Runnable helloRunnable = new Runnable() {
             public void run() {
                 getNotes();
@@ -67,6 +67,16 @@ public class HomeGUI extends javax.swing.JFrame {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(helloRunnable, 0, 3, TimeUnit.SECONDS);
 
+        // get weather info every 10 minutes
+        Runnable weatherRunnable = new Runnable() {
+            public void run() {
+                getWeather();
+            }
+        };
+        
+        ScheduledExecutorService executorWeather = Executors.newScheduledThreadPool(1);
+        executorWeather.scheduleAtFixedRate(weatherRunnable, 0, 10, TimeUnit.MINUTES);
+        
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         getWeather();
